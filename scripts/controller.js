@@ -20,36 +20,38 @@ $(document).ready(function () {
     e.preventDefault();
     $("#status").val(stats);
 
-
     ($("#pubBtn").click(function () {
       client.publish(top.val(), pload.val());
+      $("#PubDetails").show();
       var row = "<tr><td>" + top.val() + "</td><td>" + pload.val() + "</td><td>" + time.toUTCString() + "</td></tr>";
-      $("#PubDetails").append(row);
+      $("#tb").append(row);
     }))
 
     $("#subBtn").click(function () {
       client.subscribe(subscribeTopic.val())
       client.publish(top.val(), pload.val());
-      var row = "<tr><td>" + top.val() + "</td><td>" + time.toUTCString() + "</td></tr>";
-      $("#SubDetails").append(row);
+      $("#SubDetails").show();
+      var row = "<tr><td>" + subscribeTopic.val() + "</td><td>" + time.toUTCString() + "</td></tr>";
+      $("#tbsub").append(row);
       client.on("message", function (topic, payload) {
         console.log([topic, payload].join(": "));
+        $("#SubsPubDetails").show();
+        var row = "<tr><td>" + subscribeTopic.val() + "</td><td>" + payload + "</td><td>" + time.toUTCString() + "</td></tr>";
+        $("#tbsubs").append(row);
       })
-
     })
 
     $("#disconnectBtn").click(function () {
-      client.end();
-      //location.reload();
-      $("input").val(null);
-      $("#add").val(brokweAdd);
+      //client.end();
+      location.reload();
+      //$("input").val(null);
+      //$("#add").val(brokweAdd);
     })
 
     $("#unsubBtn").click(function () {
       client.unsubscribe(subscribeTopic.val())
     })
   })
-
 });
 
 
