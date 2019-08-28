@@ -1,6 +1,10 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Mows</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -8,55 +12,93 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <style>
     button {
-      width: 120px;
-      
+      width: 120px; 
     }
-    
-  </style>
+    th, tr, td {
+      border: solid black 2px;
+    }
+    td, th {
+      padding: 10px 10px;
+    }
+    .card-deck{
+        margin-top: 50px;
+    }
+    </style>
 </head>
 
 <body>
   <script src="scripts/browserMqtt.js"></script>
   <script src="scripts/controller.js"></script>
-  <h1>MQTT</h1>
-  <p>My MQTT
 
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-4">
+  <div class="container-fluid">
+    <div class="card-deck">
+      <div class="card bg-light">
+        <div class="card-body text-center">
           <h1>Broker</h1>
 
-          Address: <input type="text" id="add" style="width: 200px" readonly><br><br>
-          Status: <input type="text" id="status" style="width: 200px" readonly><br><br>
+          Address: <input class="form-control" type="text" id="add" readonly><br><br>
+          Status: <input class="form-control" type="text" id="status" readonly><br><br>
           <button id="connectBtn" class="btn btn-success">Connect</button>
           <button id="disconnectBtn" class="btn btn-warning">Disconnect</button>
+          <div class="row" id="SubsPubDetails" style="display: none; padding-block-start: 100px;">
+            <table>
+              <thead id="subs">
+                <th>Topic</th>
+                <th>Payload</th>
+                <th>Timestamp</th>
+              </thead>
+              <tbody id="tbsubs">
 
-
+              </tbody>
+            </table>
+          </div>
         </div>
+      </div>
 
-        <div class="col-sm-4">
+      <div class="card bg-light">
+        <div class="card-body text-center">
           <h1>Publish</h1>
 
-          Topic: <input type="text" id="topicPub" style="width: 200px"><br><br>
-          Payload: <input type="text" id="payload" style="width: 200px"><br><br>
+          Topic: <input class="form-control" type="text" id="topicPub"><br><br>
+          Payload: <input class="form-control" type="text" id="payload"><br><br>
           <button id="pubBtn" class="btn btn-primary">Publish</button>
-          <div id="PubDetails"></div>
+          <div class="row" id="PubDetails" style="display: none; padding-block-start: 100px;">
+            <table>
+              <thead id="thPub">
+                <th>Topic</th>
+                <th>Payload</th>
+                <th>Timestamp</th>
+              </thead>
+              <tbody id="tb">
 
+              </tbody>
+            </table>
+          </div>
         </div>
+      </div>
 
-        <div class="col-sm-4">
+      <div class="card bg-light">
+        <div class="card-body text-center">
           <h1>Subscribe</h1>
 
-          Topic: <input type="text" id="topicSub" style="width: 200px"><br><br>
+          Topic: <input class="form-control" type="text" id="topicSub"><br><br>
           <button id="subBtn" class="btn btn-primary">Subscribe</button>
           <button id="unsubBtn" class="btn btn-secondary">Unsubscribe</button>
-          <div id="SubDetails"></div>
+          <div class="row" id="SubDetails" style="display: none; padding-block-start: 100px;">
+            <table class="table">
+              <thead id="thSub">
+                <th>Topic</th>
+                <th>Timestamp</th>
+              </thead>
+              <tbody id="tbsub">
 
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
-
-
+  </div>
 </body>
 
 </html>
