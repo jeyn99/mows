@@ -1,56 +1,59 @@
 // basic functionalities
 $(document).ready(function () {
   client = mqtt.connect("ws://broker.hivemq.com:8000/mqtt")
-  $("#add").val("ws://broker.hivemq.com:8000/mqtt");
+
+  var brokweAdd = "ws://broker.hivemq.com:8000/mqtt";
+  $("#add").val(brokweAdd);
   var stats;
   var top = $("#topicPub");
   var pload = $("#payload");
   var subscribeTopic = $("#topicSub");
   var time = new Date($.now());
 
+
   client.on("connect", function () {
     stats = ("Successfully connected");//display in console to check its connectivity
   })
 
+
   $("#connectBtn").click(function (e) {
     e.preventDefault();
-    console.log("Connect");
-    console.log(time.toUTCString());
-    $("#status").val(stats);//connection display
-    
+    $("#status").val(stats);
+
 
     ($("#pubBtn").click(function () {
       client.publish(top.val(), pload.val());
-      //$("#PublishDetails").$("<tr><td>" + top.val())
+      var row = "<tr><td>" + top.val() + "</td><td>" + pload.val() + "</td><td>" + time.toUTCString() + "</td></tr>";
+      $("#PubDetails").append(row);
     }))
-
 
     $("#subBtn").click(function () {
       client.subscribe(subscribeTopic.val())
       client.publish(top.val(), pload.val());
-      client.on("message", function (topic, payload) {
-        console.log([topic, payload].join(": "));
-        
-      })
       var row = "<tr><td>" + top.val() + "</td><td>" + time.toUTCString() + "</td></tr>";
       $("#SubDetails").append(row);
+      client.on("message", function (topic, payload) {
+        console.log([topic, payload].join(": "));
+      })
+
+    })
+
+    $("#disconnectBtn").click(function () {
+      client.end();
+      //location.reload();
+      $("input").val(null);
+      $("#add").val(brokweAdd);
     })
 
     $("#unsubBtn").click(function () {
-      client.subscribe(subscribeTopic.val())
-      client.publish(top.val(), pload.val());
-      client.on("message", function (topic, payload) {
-        console.log([topic, payload].join(": "));
-        client.end();
-      })
-      
+      client.unsubscribe(subscribeTopic.val())
     })
-
-  });
-
-
+  })
 
 });
+
+
+
 
 
 
