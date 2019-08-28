@@ -1,11 +1,54 @@
 <html>
+
 <head>
-  <title>mows</title>
+  <title>Mows</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <style>
+    button {
+      width: 120px;
+      
+    }
+    
+  </style>
 </head>
+
 <body>
+  <script src="scripts/browserMqtt.js"></script>
+  <script src="scripts/controller.js"></script>
   <h1>MQTT</h1>
   <p>My MQTT Web App</p>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4" >
+        <h1>Broker</h1>
+        Address: <input type="text" id="add" style="width: 200px" readonly><br><br>
+        Status: <input type="text" id="status" style="width: 200px" readonly><br><br>
+        <button id="connectBtn" class="btn btn-success">Connect</button>
+      </div>
+
+      <div class="col-sm-4">
+        <h1>Publish</h1>
+        Topic: <input type="text" id="topicPub" style="width: 200px"><br><br>
+        Payload: <input type="text" id="payload" style="width: 200px"><br><br>
+        <button id="pubBtn" class="btn btn-primary">Publish</button>
+        <div id="PublishDetails"></div>
+      </div>
+
+      <div class="col-sm-4" >
+        <h1>Subscribe</h1>
+        Topic: <input type="text" id="topicSub" style="width: 200px"><br><br>
+        <button id="subBtn" class="btn btn-primary">Subscribe</button>
+        <button id="unsubBtn" class="btn btn-secondary">Unsubscribe</button>
+        <div id="SubDetails"></div>
+      </div>
+    </div>
+  </div>
+
+
 </body>
-<script src="scripts/browserMqtt.js"></script>
-<script src="scripts/controller.js"></script>
+
 </html>
