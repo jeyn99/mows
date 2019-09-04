@@ -1,8 +1,8 @@
 // basic functionalities
 $(document).ready(function () {
-  client = mqtt.connect("ws://broker.hivemq.com:8000/mqtt")
+  client = mqtt.connect("wss://test.mosquitto.org:8081/mqtt")
 
-  var brokweAdd = "ws://broker.hivemq.com:8000/mqtt";
+  var brokweAdd = "wss://test.mosquitto.org:8081/mqtt";
   $("#add").val(brokweAdd);
   var stats;
   var top = $("#topicPub");
@@ -29,7 +29,7 @@ $(document).ready(function () {
 
     $("#subBtn").click(function () {
       client.subscribe(subscribeTopic.val())
-      client.publish(top.val(), pload.val());
+      //client.publish(top.val(), pload.val());
       $("#SubDetails").show();
       var row = "<tr><td>" + subscribeTopic.val() + "</td><td>" + time.toUTCString() + "</td></tr>";
       $("#tbsub").append(row);
