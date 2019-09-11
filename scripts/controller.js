@@ -17,18 +17,24 @@ $(document).ready(function () {
       $("#status").val("Successfully Connected");
 
       ($("#pubBtn").click(function () {
-        client.publish(top.val(), pload.val());
-        $("#PubDetails").show();
-        var row = "<tr><td>" + topic + "</td><td>" + payload + "</td><td>" + time.toUTCString() + "</td></tr>";
-        $("#tb").append(row);
-      }))      
+        if (top.val() === "") {
+          alert("Fill up the Publish Topic!");
+        } else {
+          client.publish(top.val(), pload.val());
+          $("#PubDetails").show();
+          var row = "<tr><td>" + top.val() + "</td><td>" + pload.val() + "</td><td>" + time.toUTCString() + "</td></tr>";
+          $("#tb").append(row);
+        }
+      }))
 
       $("#subBtn").click(function () {
-        client.subscribe(subscribeTopic.val());
+        client.subscribe(subscribeTopic.val())
+        //client.publish(top.val(), pload.val());
         $("#SubDetails").show();
-        var row = "<tr><td>" + topic + "</td><td>" + time.toUTCString() + "</td></tr>";
+        var row = "<tr><td>" + subscribeTopic.val() + "</td><td>" + time.toUTCString() + "</td></tr>";
         $("#tbsub").append(row);
       })
+      
 
       client.on("message", function (topic, payload) {
         console.log([topic, payload].join(": "));
