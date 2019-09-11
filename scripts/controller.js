@@ -1,18 +1,18 @@
 // basic functionalities
 $(document).ready(function () {
-  var brokweAdd = "ws://broker.hivemq.com:8000/mqtt";
+  var brokweAdd = "wss://test.mosquitto.org:8081/mqtt";
   $("#add").val(brokweAdd);
   var top = $("#topicPub");
   var pload = $("#payload");
   var subscribeTopic = $("#topicSub");
   var time = new Date($.now());
-
-
+  
   $("#connectBtn").click(function (e) {
     e.preventDefault();
     $("#status").val("Connecting...");
 
     client = mqtt.connect(brokweAdd);
+
     client.on("connect", function () {
       $("#status").val("Successfully Connected");
 
@@ -29,13 +29,15 @@ $(document).ready(function () {
         $("#SubDetails").show();
         var row = "<tr><td>" + subscribeTopic.val() + "</td><td>" + time.toUTCString() + "</td></tr>";
         $("#tbsub").append(row);
-        client.on("message", function (topic, payload) {
-          console.log([topic, payload].join(": "));
-          $("#SubsPubDetails").show();
-          var row = "<tr><td>" + subscribeTopic.val() + "</td><td>" + payload + "</td><td>" + time.toUTCString() + "</td></tr>";
-          $("#tbsubs").append(row);
-        })
       })
+
+      client.on("message", function (topic, payload) {
+        console.log([topic, payload].join(": "));
+        $("#SubsPubDetails").show();
+        var row = "<tr><td>" + topic + "</td><td>" + payload + "</td><td>" + time.toUTCString() + "</td></tr>";
+        $("#tbsubs").append(row);
+      })
+
 
       $("#disconnectBtn").click(function () {
         //client.end();
