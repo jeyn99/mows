@@ -19,15 +19,14 @@ $(document).ready(function () {
       ($("#pubBtn").click(function () {
         client.publish(top.val(), pload.val());
         $("#PubDetails").show();
-        var row = "<tr><td>" + top.val() + "</td><td>" + pload.val() + "</td><td>" + time.toUTCString() + "</td></tr>";
+        var row = "<tr><td>" + topic + "</td><td>" + payload + "</td><td>" + time.toUTCString() + "</td></tr>";
         $("#tb").append(row);
-      }))
+      }))      
 
       $("#subBtn").click(function () {
-        client.subscribe(subscribeTopic.val())
-        //client.publish(top.val(), pload.val());
+        client.subscribe(subscribeTopic.val());
         $("#SubDetails").show();
-        var row = "<tr><td>" + subscribeTopic.val() + "</td><td>" + time.toUTCString() + "</td></tr>";
+        var row = "<tr><td>" + topic + "</td><td>" + time.toUTCString() + "</td></tr>";
         $("#tbsub").append(row);
       })
 
