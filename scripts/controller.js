@@ -30,6 +30,7 @@ $(document).ready(function () {
         var row = "<tr><td>" + subscribeTopic.val() + "</td><td>" + time.toUTCString() + "</td></tr>";
         $("#tbsub").append(row);
       })
+      
 
       client.on("message", function (topic, payload) {
         console.log([topic, payload].join(": "));
